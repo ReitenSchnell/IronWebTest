@@ -15,11 +15,11 @@ namespace IronWebTest.Controllers
             return Enumerable.Range(0, 3).Select(i => Guid.NewGuid().ToString()).ToList();
         }
 
-        public void Post([FromBody] string str)
+        public void Post([FromBody] object obj)
         {
             try
             {
-                Configuration.Services.GetTraceWriter().Info(Request, "Irons controller", str);
+                Configuration.Services.GetTraceWriter().Info(Request, "Irons controller", obj.ToString());
             }
             catch (Exception ex)
             {
