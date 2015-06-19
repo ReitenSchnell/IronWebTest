@@ -13,5 +13,10 @@ namespace IronWebTest.Controllers
             Trace.TraceInformation("Asking for irons");
             return Enumerable.Range(0, 3).Select(i => Guid.NewGuid().ToString()).ToList();
         }
+
+        public void Post([FromBody] string str)
+        {
+            Trace.TraceInformation("Pushing " + str);
+        }
     }
 }
