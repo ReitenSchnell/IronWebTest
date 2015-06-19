@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Tracing;
 
 namespace IronWebTest.Controllers
 {
@@ -10,13 +11,20 @@ namespace IronWebTest.Controllers
     {
         public List<string> Get()
         {
-            Trace.TraceInformation("Asking for irons");
+            Configuration.Services.GetTraceWriter().Info(Request, "Irons controller", "Asking for irons");
             return Enumerable.Range(0, 3).Select(i => Guid.NewGuid().ToString()).ToList();
         }
 
         public void Post([FromBody] string str)
         {
-            Trace.TraceInformation("Pushing " + str);
+            try
+            {
+                Configuration.Services.GetTraceWriter().Info(Request, "Irons controller", str);
+            }
+            catch (Exception ex)
+            {
+                Configuration.Services.GetTraceWriter().Info(Request, "Irons controller", ex);
+            }
         }
     }
 }
