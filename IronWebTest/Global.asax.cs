@@ -17,6 +17,7 @@ namespace IronWebTest
         protected void Application_Start()
         {
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configuration.Formatters.Insert(0, new TextMediaTypeFormatter());
         }
     }
 }
